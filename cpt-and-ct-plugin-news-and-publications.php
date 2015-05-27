@@ -66,7 +66,7 @@ function my_custom_post_types() {
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
-        'menu_position'      => 5, //set the position in the dashboard left menu; http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+        'menu_position'      => 5,
         'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
         //'taxonomies'         => array( 'category', 'post_tag' )   //code-out this line if you want your custom taxonomy to work indipendently from standard posts
     );
