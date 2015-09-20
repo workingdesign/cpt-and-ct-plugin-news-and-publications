@@ -60,6 +60,7 @@ function my_custom_post_types() {
         'publicly_queryable' => true,
         'show_ui'            => true,
         'show_in_menu'       => true,
+        // 'show_in_nav_menus'  => true, // option to investigate
         'menu_icon'          => 'dashicons-id-alt', //this icon is from: https://developer.wordpress.org/resource/dashicons/
         'query_var'          => true,
         'rewrite'            => array( 'slug' => 'publications' ),
@@ -100,6 +101,7 @@ function my_custom_post_types() {
         'publicly_queryable' => true,
         'show_ui'            => true,
         'show_in_menu'       => true,
+        // 'show_in_nav_menus'  => true, // option to investigate
         'query_var'          => true,
         'rewrite'            => array( 'slug' => 'news' ),
         'capability_type'    => 'post',
