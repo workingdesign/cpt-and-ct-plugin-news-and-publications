@@ -299,3 +299,35 @@ function namespace_add_custom_types( $query ) {
 add_filter( 'pre_get_posts', 'namespace_add_custom_types' );
 
 //http://css-tricks.com/snippets/wordpress/make-archives-php-include-custom-post-types/
+
+
+
+// Custom messages in the admin editor notifications bar
+function custom_post_type_update_messages( $messages )
+{
+        global $post;
+
+        $post_ID = $post->ID;
+        $post_type = get_post_type( $post_ID );
+
+        $obj = get_post_type_object( $post_type );
+        $singular = $obj->labels->singular_name;
+
+        $messages[$post_type] = array(
+                0 => '', // Unused. Messages start at index 1.
+                1 => sprintf( __( '%s updated. <a href="%s" target="_blank">View %s</a>' ), esc_attr( $singular ), esc_url( get_permalink( $post_ID ) ), strtolower( $singular ) ),
+                2 => __( 'Custom field updated.', 'my-theme' ),
+                3 => __( 'Custom field deleted.', 'my-theme' ),
+                4 => sprintf( __( '%s updated.', 'my-theme' ), esc_attr( $singular ) ),
+                5 => isset( $_GET['revision']) ? sprintf( __('%2$s restored to revision from %1$s', 'my-theme' ), wp_post_revision_title( (int) $_GET['revision'], false ), esc_attr( $singular ) ) : false,
+                6 => sprintf( __( '%s published. <a href="%s">View %s</a>'), $singular, esc_url( get_permalink( $post_ID ) ), strtolower( $singular ) ),
+                7 => sprintf( __( '%s saved.', 'my-theme' ), esc_attr( $singular ) ),
+                8 => sprintf( __( '%s submitted. <a href="%s" target="_blank">Preview %s</a>'), $singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ), strtolower( $singular ) ),
+                9 => sprintf( __( '%s scheduled for: <strong>%s</strong>. <a href="%s" target="_blank">Preview %s</a>' ), $singular, date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ), strtolower( $singular ) ),
+                10 => sprintf( __( '%s draft updated. <a href="%s" target="_blank">Preview %s</a>'), $singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ), strtolower( $singular ) )
+        );
+
+        return $messages;
+}
+add_filter( 'post_updated_messages', 'custom_post_type_update_messages' );
+// http://thomasmaxson.com/update-messages-for-custom-post-types/
