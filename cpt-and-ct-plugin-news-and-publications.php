@@ -303,8 +303,7 @@ add_filter( 'pre_get_posts', 'namespace_add_custom_types' );
 
 
 // Custom messages in the admin editor notifications bar
-function custom_post_type_update_messages( $messages )
-{
+function custom_post_type_update_messages( $messages ) {
         global $post;
 
         $post_ID = $post->ID;
@@ -329,5 +328,6 @@ function custom_post_type_update_messages( $messages )
 
         return $messages;
 }
+
 add_filter( 'post_updated_messages', 'custom_post_type_update_messages' );
 // http://thomasmaxson.com/update-messages-for-custom-post-types/
